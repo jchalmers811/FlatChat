@@ -1,14 +1,19 @@
 package com.example.james.flatchat
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.jar.Manifest
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,21 +21,19 @@ class MainActivity : AppCompatActivity() {
 
         // listen for button press
         login_button_login.setOnClickListener {
-
             performLogin()
-
         }
 
+        // takes user to register activity
         makeaccount_textview_login.setOnClickListener {
-
             // create and start intent
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
-
         }
 
 
     }
+
 
     private fun performLogin() {
 
