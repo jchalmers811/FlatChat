@@ -16,7 +16,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
 
@@ -84,7 +84,6 @@ class RegisterActivity : AppCompatActivity() {
             // Permission is not granted so request permission
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA),
                     REQUEST_USE_CAMERA)
-
         }
     }
 
@@ -151,7 +150,7 @@ class RegisterActivity : AppCompatActivity() {
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val reference = FirebaseDatabase.getInstance().getReference("/users/$uid")
 
-        val user = user(uid, username_edittext_register.text.toString(), profileImage)
+        val user = User(uid, username_edittext_register.text.toString(), profileImage)
 
         reference.setValue(user)
                 .addOnSuccessListener {
@@ -162,7 +161,6 @@ class RegisterActivity : AppCompatActivity() {
                     // clear previous activities so back will take user home instead of back to registration
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
-
                 }
                 .addOnFailureListener {
                     Log.d(TAG, "Failed to save data to database: ${it.message}")
@@ -172,4 +170,3 @@ class RegisterActivity : AppCompatActivity() {
 
 }
 
-class user(val uid: String, val username: String, val profileImage: String)
